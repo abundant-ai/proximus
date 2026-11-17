@@ -15,16 +15,12 @@ from typing import Any, cast, override
 
 import litellm
 import tenacity
-from harbor.agents.model_connection import (
-    PROVIDERS,
-    ModelConnectionSpec,
-    resolve_model_connection,
-)
 from harbor.llms.base import ContextLengthExceededError, OutputLengthExceededError
 from litellm.llms.custom_httpx.http_handler import AsyncHTTPHandler
 from litellm.llms.openai.chat.gpt_5_transformation import OpenAIGPT5Config
 from litellm.types.utils import ModelResponse
 
+from harbor_proximus.compat import resolve_agent_connection
 from harbor_proximus.config import BUDGET_MARGIN_SEC, ProximusConfig
 
 _MODEL_REGISTRATION_LOCK = threading.Lock()
@@ -50,7 +46,6 @@ def _register_model_info(model_info: dict[str, dict[str, Any]]) -> None:
 
 # Providers whose credential in Harbor's PROVIDERS table is not a bearer API key.
 _NON_BEARER_PROVIDERS = frozenset({"amazon-bedrock", "sagemaker", "vertex_ai"})
-assert _NON_BEARER_PROVIDERS <= set(PROVIDERS)
 
 
 def _litellm_knows(model: str) -> bool:
@@ -90,9 +85,7 @@ def resolve_credentials(
                 return name, agent_env[name]
         return None
 
-    connection = resolve_model_connection(
-        model_name, ModelConnectionSpec(), from_agent_env
-    )
+    connection = resolve_agent_connection(model_name, from_agent_env)
     cloud_auth = connection.provider in _NON_BEARER_PROVIDERS
     consumed = {
         name for name in used if not cloud_auth or name.endswith(("_BASE", "_URL"))

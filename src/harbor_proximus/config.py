@@ -1,9 +1,10 @@
 from pathlib import Path
 from typing import Any, Self
 
-from harbor.agents.options import AgentOptions
 from harbor.utils.templating import render_prompt_template
 from pydantic import ConfigDict, Field, field_validator, model_validator
+
+from harbor_proximus.compat import AgentOptions
 
 # Seconds kept free at the end of the time budget: bash commands time out this
 # long before the budget runs out, and a model request always gets at least

@@ -10,8 +10,6 @@ from importlib.metadata import version
 from pathlib import Path, PurePosixPath
 from typing import Any, Literal, override
 
-from harbor.agents.base import BaseAgent
-from harbor.agents.capabilities import AgentCapabilities
 from harbor.environments.base import BaseEnvironment
 from harbor.llms.base import ContextLengthExceededError, OutputLengthExceededError
 from harbor.models import trajectories
@@ -27,6 +25,7 @@ import harbor_proximus.submissions as submissions
 import harbor_proximus.timer as timer
 import harbor_proximus.tools as tools
 import harbor_proximus.utils as utils
+from harbor_proximus.compat import AgentCapabilities, BaseAgent
 from harbor_proximus.config import ProximusConfig
 
 EMPTY_TURN_STALL_LIMIT = 3

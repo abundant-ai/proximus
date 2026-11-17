@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.14'",
@@ -7,7 +7,7 @@ resolution-markers = [
 ]
 
 [options]
-exclude-newer = "2026-10-14T23:51:31.91401876Z"
+exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
 exclude-newer-span = "P7D"
 
 [[package]]
@@ -803,7 +803,7 @@ wheels = [
 
 [[package]]
 name = "harbor-proximus"
-version = "0.1.0a1"
+version = "0.1.0a1+oddish.1"
 source = { editable = "." }
 dependencies = [
     { name = "harbor" },
@@ -825,8 +825,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "harbor", specifier = "==0.23.0" },
-    { name = "litellm", specifier = ">=1.97.0,<2" },
+    { name = "harbor", specifier = ">=0.20.0,<=0.23.0" },
+    { name = "litellm", specifier = ">=1.83.14,<2" },
     { name = "pillow", specifier = ">=10" },
     { name = "pydantic", specifier = ">=2.11.7,<3" },
     { name = "tenacity", specifier = ">=9.1.2,<10" },

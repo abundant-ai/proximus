@@ -1,5 +1,18 @@
 # Proximus
 
+This is Abundant's compatibility fork of `Proximal-Labs/proximus`, based on
+upstream commit `a989f7b35c95c0fd30603290da3c923b7898cba8`.
+Version `0.1.0a1+oddish.1` adds agent-local option and credential adapters for
+Abundant's Harbor 0.20 fork and permits LiteLLM 1.83.14. It leaves the agent's
+tool loop, prompts and submission behavior unchanged. Harbor itself is not patched.
+The older runtime accepts explicit Anthropic, OpenAI, Azure, Gemini, OpenRouter
+and xAI credentials; Bedrock, SageMaker and Vertex retain LiteLLM's cloud lookup.
+Other provider prefixes fail clearly on the older runtime.
+
+The upstream instructions below describe Harbor 0.23. Oddish's deployed CLI
+flows own validation of its pinned fork. An import check alone does not establish
+provider, sandbox, timeout or scoring behavior.
+
 Proximus is a coding agent for long-horizon tasks, packaged as an external agent
 for [Harbor](https://pypi.org/project/harbor/). It runs a LiteLLM tool loop on the
 orchestrator host and acts in the sandbox only through Harbor's environment
